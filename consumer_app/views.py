@@ -14,7 +14,7 @@ from decimal import Decimal
 
 # Create your views here.
 def index(request):
-    # import ipdb;ipdb.set_trace()
+    # #import ipdb;ipdb.set_trace()
     try:
         s_mail = request.session['email']
         if s_mail:
@@ -37,7 +37,7 @@ def about(request):
 
 def products(request):
     try:
-        # import ipdb;ipdb.set_trace()
+        # #import ipdb;ipdb.set_trace()
         
         if request.method =='GET':
             s_mail = request.session['email']
@@ -50,7 +50,7 @@ def products(request):
             # last_pg = prod_final.paginator.num_pages 
             return render(request,'products.html',{'user_data':user_obj,"pro_list":prod_final,'pg':page_number,'last':prod_final, })
         else:
-            # import ipdb;ipdb.set_trace()
+            # #import ipdb;ipdb.set_trace()
             s_mail = request.session['email']
             user_obj = UserData.objects.get(email = s_mail)
             prod_name = request.POST.get('product_name')
@@ -83,7 +83,7 @@ def signup(request):
     else:
         # this code saves forms data to database
         try:
-            # import ipdb
+            # #import ipdb
             # ipdb.set_trace()
             check_email = UserData.objects.all()
             email_list = [i.email for i in check_email]
@@ -95,7 +95,7 @@ def signup(request):
             else:
                 raise Exception('Just')
         except :#ObjectDoesNotExist:
-            # import ipdb
+            # #import ipdb
             # ipdb.set_trace()
             if request.POST['re_password'] == request.POST['password']:
                 
@@ -161,7 +161,7 @@ def profile(request):
         except:
             return render(request,'profile.html')
     else:
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
         user_obj = UserData.objects.get(email = request.session['email'])
         user_obj.name = request.POST['name']
         user_obj.phone = request.POST['phone']
@@ -181,7 +181,7 @@ def faq(request):
 
 def otp_page(request):
     if request.method == 'POST':
-        # import ipdb
+        # #import ipdb
         # ipdb.set_trace()
         if request.POST.get('otp')== otp:
             data = UserData(name = user_dict['name'],phone = user_dict['phone'],email = user_dict['email'],password = user_dict['password'])
@@ -195,7 +195,7 @@ def otp_page(request):
         return render(request,'otp_page.html')
 
 def resend_otp(request):
-    # import ipdb;
+    # #import ipdb;
     # ipdb.set_trace()
     print('otp sent')
     if request.method == 'POST': 
@@ -209,7 +209,7 @@ def signin(request):
     if request.method != 'POST':
         return render(request,'signin.html')
     else:
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
         try:
             user_obj = UserData.objects.get(email = request.POST['email'])
             print(user_obj)
@@ -227,7 +227,7 @@ def signin(request):
 
 def s_otp_page(request):
     if request.method == 'POST':
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
         if request.POST.get('otp')== otp_:
             return render(request,'new_password.html')
         else:
@@ -241,7 +241,7 @@ def reset_password(request):
     if request.method != "POST":
         return render(request,'reset_password.html')
     else:
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
         
         global otp_,s_user_obj
         otp_ = str(random.randint(999,10000))
@@ -258,14 +258,14 @@ def reset_password(request):
         return render(request,'s_otp_page.html',{'msg':msg})
         
 def signout(request):
-    # import ipdb;ipdb.set_trace()
+    # #import ipdb;ipdb.set_trace()
     # print(s_mail)
     del request.session['email']
     return redirect('index')
 
 
 def s_resend_otp(request):
-    # import ipdb;
+    # #import ipdb;
     # ipdb.set_trace()
     print('otp sent')
     if request.method == 'POST':
@@ -280,7 +280,7 @@ def s_resend_otp(request):
 
    
 def new_password(request):
-    import ipdb;ipdb.set_trace()
+    #import ipdb;ipdb.set_trace()
     if request.method != "GET":
         if request.POST['password'] == request.POST['re_password']:
             email_obj = UserData.objects.get(email = request.POST['email'])
@@ -300,7 +300,7 @@ def new_password(request):
 
 def cart(request,prod_id):
     
-    import ipdb;ipdb.set_trace()
+    #import ipdb;ipdb.set_trace()
     s_mail = request.session['email']
     user_obj = UserData.objects.get(email = s_mail)
     
@@ -367,7 +367,7 @@ def cart_table(request):
     cart_obj = Cart.objects.filter(email = s_mail)
     if cart_obj:
         # global total_amount
-        import ipdb;ipdb.set_trace()
+        #import ipdb;ipdb.set_trace()
         total_amount = 0
         for amt in cart_obj:
             total_amount += amt.price     
@@ -386,7 +386,7 @@ def cart_table(request):
 
 @csrf_exempt
 def paymenthandler(request):
-    import  ipdb ; ipdb.set_trace()
+    # import  ipdb ; ipdb.set_trace()
     if request.method == "POST":
         try:
             payment_id = request.POST.get('razorpay_payment_id', '')    
@@ -438,7 +438,7 @@ def paymenthandler(request):
 
 def update_quauntity(request,prod_id):  
     if request.method == "POST":
-        # import ipdb;ipdb.set_trace()
+        # #import ipdb;ipdb.set_trace()
         
         s_mail = request.session['email']
         # product = Product.objects.get(id = prod_id)
@@ -457,7 +457,7 @@ def update_quauntity(request,prod_id):
     return redirect('cart_table')
 
 def del_cart_row(request, prod_id):
-    import ipdb;ipdb.set_trace()
+    #import ipdb;ipdb.set_trace()
     s_mail = request.session['email']
     del_row = Cart.objects.get(id = prod_id,email=s_mail)
     del_row.delete()
