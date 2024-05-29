@@ -1,0 +1,293 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <style>
+            .capitalize:first-letter {
+                text-transform: uppercase;
+            }
+        </style>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content=""><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <style>
+            .custom-icon:hover::after {
+                content: attr(title);
+                position: absolute;
+                background-color: black;
+                color: white;
+                padding: 5px;
+                border-radius: 5px;
+                top: -25px; /* Adjust according to your needs */
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+                font-size: 0.9em;
+                z-index: 1000;
+            }
+        </style>
+        <style>
+        .remove-button {
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .remove-button button {
+            background-color: #000; /* Black background color */
+            color: #fff; /* White text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .remove-button button:hover {
+            background-color: #333; /* Darker black background color on hover */
+        }
+
+        .remove-button {
+            text-decoration: none;
+            float: right;
+        }
+        
+        </style>
+        
+        <style>
+            /* Container */
+            .container {
+              text-align: center; /* Center the content horizontally */
+            }
+            
+            /* Style the search container */
+            .search-container {
+              display: inline-block; /* Make it inline-block so it centers horizontally */
+              position: relative;
+            }
+            
+            /* Style the input field */
+            .search-container input[type=text] {
+              width: 200px; /* Adjust the width as needed */
+              padding: 8px 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              outline: none; /* Remove outline */
+            }
+            
+            /* Style the search button */
+            .search-container button {
+              position: absolute;
+              right: 0;
+              top: 0;
+              padding: 8px 10px;
+              border: none;
+              background: none;
+              cursor: pointer;
+            }
+            
+            /* Style the search icon */
+            .search-container button i {
+              font-size: 18px;
+            }
+            
+
+
+        </style>
+        <style>
+            .quantity-input {
+                width: 30px; /* Adjust the width as needed */
+                height: 20px; /* Adjust the height as needed */
+                text-align: center; /* Center the text inside the input */
+            }
+        </style>
+        <style>
+            .quantity {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                display: inline-block;
+                padding: 5px;
+            }
+        
+            .quantity-button {
+                background-color: #000;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                font-size: 16px;
+                padding: 5px 10px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+        
+            .quantity-button:hover {
+                background-color: #ff4400;
+            }
+        
+            .quantity span {
+                display: inline-block;
+                padding: 0 10px;
+                font-size: 16px;
+                color: #333;
+            }
+        </style>
+        <style>
+            .side-window {
+                position: fixed;
+                top: 50%; /* Align the top of the side window at 50% of the viewport height */
+                right: 20px;
+                width: 250px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                padding: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-50%); /* Move the side window up by 50% of its own height */
+            }
+            
+        </style>
+        <style>
+            /* Style for buttons */
+            .scroll-button {
+                display: block;
+                position: fixed;
+                bottom: 20px; /* Adjust as needed */
+                right: 20px; /* Adjust as needed */
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+        <style>/* Style for the buttons */
+            .scroll-button {
+                display: block;
+                position: fixed;
+                bottom: 20px; /* Adjust as needed */
+                right: 20px; /* Adjust as needed */
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+            /* Style for the "Go to Top" button */
+            #goTop {
+                bottom: unset;
+                top: 20px; /* Adjust as needed */
+            }
+            
+            /* Style for the "Go to Bottom" button */
+            #goBottom {
+                top: unset;
+                bottom: 20px; /* Adjust as needed */
+            }
+            </style>            
+        <title>Tooplate's Little Fashion</title>
+
+        <!-- CSS FILES -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="/static/css/slick.css"/>
+
+        <link href="/static/css/tooplate-little-fashion.css" rel="stylesheet">
+<!--
+
+Tooplate 2127 Little Fashion
+
+https://www.tooplate.com/view/2127-little-fashion
+
+-->
+    </head>
+    
+    <body>
+
+        <section class="preloader">
+            <div class="spinner">
+                <span class="sk-inner-circle"></span>
+            </div>
+        </section>
+    
+        <main>
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/">
+                        <strong><span>Little</span> Fashion</strong>
+                    </a>
+
+                    <div class="d-lg-none">
+                        <a href="/signin/" class="bi-person custom-icon me-3"></a>
+
+                        <a href="/products/" class="bi-bag custom-icon"></a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == '/' %} active {% endif %}" href="/">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == '/about/' %} active {% endif %}" href="/about">Story</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == '/products/' %} active {% endif %}" href="/products">Products</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == '/faq/' %} active {% endif %}" href="/faq">FAQs</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == '/contact/' %} active {% endif %}" href="/contact">Contact</a>
+                            </li>
+                            {% if user_data %}
+                            <li class="nav-item">
+                                <a class="nav-link">{{user_data.name}}</a>
+                                
+                                {% if user_data.pic.url %}
+                                    <a href="/profile/" title='editProfile'>
+                                    <img src= {{user_data.pic.url}} width="40 px" class="img-circle elevation-2" alt="UserPicture">
+                                    {% else %}
+                                    <img src= '/' width="40 px" class="img-circle elevation-2" alt="User Image">
+                                    {% endif %}
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        {% if user_data %}
+                        <div class="d-none d-lg-block" style="margin-bottom: 10px;">
+                            <a href="/signout/" class="bi bi-box-arrow-right custom-icon me-3"></a>
+                            <a href="/cart_table/" class="bi-bag custom-icon"></a>
+                        </div>
+                        {% else  %}
+                            <div class="d-none d-lg-block">
+                                <a href="/signin" class="bi bi-person custom-icon me-3"></a>
+                                <a href="/signin/" class="bi bi-bag custom-icon"></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+
+            

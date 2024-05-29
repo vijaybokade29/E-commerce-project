@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Buttons</title>
+    <style>
+        /* Style for buttons */
+        .scroll-button {
+            display: block;
+            position: fixed;
+            bottom: 20px; /* Adjust as needed */
+            right: 20px; /* Adjust as needed */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Content -->
+    <div id="content" style="height: 2000px;">
+        <h1 id="top">Scroll Down</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo mi ac odio dictum, id ultrices lorem pulvinar.</p>
+        <h1 id="bottom">Scroll Up</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo mi ac odio dictum, id ultrices lorem pulvinar.</p>
+    </div>
+
+    <!-- Scroll buttons -->
+    <a href="#" class="scroll-button" id="goTop">Go to Top</a>
+    <a href="#" class="scroll-button" id="goBottom">Go to Bottom</a>
+
+    <script>
+        // JavaScript to handle scrolling
+        document.getElementById("goTop").addEventListener("click", function(event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        document.getElementById("goBottom").addEventListener("click", function(event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            });
+        });
+    </script>
+
+</body>
+</html>

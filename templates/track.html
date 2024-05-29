@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- CART MODAL -->
+	{% if track %}
+
+    {% for pro in track %}
+        <div >
+        </div>
+            
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0">
+                    <div class="modal-body">	
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                                <img src="{{pro.image.url}}" class="img-fluid product-image" alt="">
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-3 mt-lg-0">
+                                <h3 class="modal-title" id="exampleModalLabel">{{ pro.name }}</h3>
+
+                                <p class="product-price text-muted mt-3">{{ pro.product.price }}</p>
+								 
+								
+                                <p class="product-p">Quantity: <span class="ms-1">{{ pro.quantity }}</span></p>
+
+                                <p class="product-p">Colour: <span class="ms-1">Black</span></p>
+
+                                <p class="product-p pb-3">Size: <span class="ms-1">S/S</span></p>
+
+                                <p class="product-p pb-3">Bill :<span class="ms-1">Paid</span></p>
+
+                                <div class="border-top mt-4 pt-3">
+                                    <p class="product-p"><strong>Total: <span class="ms-1">{{pro.price}}</span></strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <br>
+	<br>
+	<br>
+    <a href="#" class="scroll-button" id="goTop">Go to Top</a>
+
+	
+	
+	<div class="col-12 text-center">
+		<a href="/products/" class="view-all">Explore more products</a>
+
+	</div>
+	<br>
+	<br>
+	<br>
+
+</form>
+{% else %}
+	<br>
+	<br>
+	<div class="container-fluid  mt-100">
+		<div class="row">
+		
+		   <div class="col-md-12">
+		   
+				   <div class="card">
+			   <div class="card-header">
+			   <h5>Cart</h5>
+			   </div>
+			   <div class="card-body cart">
+					   <div class="col-sm-12 empty-cart-cls text-center">
+						   <img src="/static/images/slideshow/d438a32e-765a-4d8b-b4a6-520b560971e8.webp" width="130" height="130" class="img-fluid mb-4 mr-3">
+						   <h3><strong>Your Cart is Empty</strong></h3>
+						   <h4>Add something to make me happy :)</h4>
+						   <a href="/products/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+						   
+					   
+					   </div>
+			   </div>
+	   </div>
+		   </div>
+		
+		</div>
+	   
+	   </div>
+
+
+    <script>
+        // JavaScript to handle scrolling
+        document.getElementById("goTop").addEventListener("click", function(event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+</script>
+
+	{% endif %}
+{% endblock %}
+

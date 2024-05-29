@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- CART MODAL -->
+	{% if cart_obj %}
+    {% for pro in cart_obj %}
+        <div >
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content border-0">
+                    <div class="modal-body">	
+                        <div class="row">
+                            <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                                <img src="{{pro.image.url}}" class="img-fluid product-image" alt="">
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-3 mt-lg-0">
+                                <h3 class="modal-title" id="exampleModalLabel">{{ pro.name }}</h3>
+
+                                <p class="product-price text-muted mt-3">{{ pro.product.price }}</p>
+								<form action="/update_quauntity/{{pro.id}}" method="POST">
+									{% csrf_token %}
+									<table class="quantity">
+										<tr>
+											<td><button class="quantity-button" name="minus">-</button></td>
+											<td><span name="quan">{{pro.quantity}}</span></td>
+											<td><button class="quantity-button" name="plus">+</button></td>
+										</tr>
+									</table>
+								</form>
+								
+								
+                                <p class="product-p">Quantity: <span class="ms-1">{{ pro.quantity }}</span></p>
+
+                                <p class="product-p">Colour: <span class="ms-1">Black</span></p>
+
+                                <p class="product-p pb-3">Size: <span class="ms-1">S/S</span></p>
+
+                                <div class="border-top mt-4 pt-3">
+                                    <p class="product-p"><strong>Total: <span class="ms-1">{{pro.price}}</span></strong></p>
+                                </div>
+								<a href="/del_cart_row/{{pro.id}}" class="remove-button">
+									<button>Remove</button>
+								</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+	<br>
+	<br>
+	<br>
+
+	<div class="side-window">
+		<h3>Purchase Details</h3>
+		<table class="purchase-table">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in cart_obj %}
+					<tr>
+						<td>{{ item.product.product_name }}</td>
+						<td>{{ item.quantity }}</td>
+						<td>₹{{ item.price }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<hr>
+		<div class="total-amount">
+			Total: ₹{{ total_amt }}
+		</div>
+	<form class="contact-form me-lg-5 pe-lg-3" role="form" action = '/success/' method='post'>
+		{% csrf_token %}
+		<div class="modal-footer">
+			<button type="button" id="rzp-button1" class="btn custom-btn cart-btn ms-lg-4">Checkout</button>
+		</div>
+	</form>
+	</div>
+	
+	
+	<div class="col-12 text-center">
+		<a href="/products/" class="view-all">Explore more products</a>
+	</div>
+	<br>
+	<br>
+	<br>
+	{% comment %} <button id="rzp-button1">Pay with Razorpay</button> {% endcomment %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<form class="contact-form me-lg-5 pe-lg-3" role="form" action = '/success/' method='post'>
+	{% csrf_token %}
+	<script>
+		var options = {
+			"key": "rzp_test_IDG6tbs5iiSP8P", // Enter the Key ID generated from the Dashboard
+			"amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+			"currency": "INR",
+			"name": "E-commerce",
+			"callback_url": '{{callback_url}}',
+			"description": "Test Transaction",
+			"image": "https://example.com/your_logo",
+			"order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"prefill": {
+				"name": "Vijay Bokade",
+				"email": "vijay.bokade@example.com",
+				"contact": "7574071446"
+			},
+			"notes": {
+				"address": "Razorpay Corporate Office"
+			},
+			"theme": {
+				"color": "#3399cc"
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		// add event listener to the payment button.
+		document.getElementById("rzp-button1").onclick = function (e) {
+		rzp1.open();
+		e.preventDefault();
+		};
+	</script>
+	{% comment %} <script>
+		var options = {
+			"key": "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
+			"amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+			"currency": "INR",
+			"name": "Acme Corp",
+			"description": "Test Transaction",
+			"image": "https://example.com/your_logo",
+			"order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"callback_url": "/success/",
+			"prefill": {
+				"name": "Vijay Bokade",
+				"email": "vijay.bokade@example.com",
+				"contact": "7574071446"
+			},
+			"notes": {
+				"address": "Razorpay Corporate Office"
+			},
+			"theme": {
+				"color": "#3399cc"
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		document.getElementById('rzp-button1').onclick = function(e){
+			rzp1.open();
+			e.preventDefault();
+		}
+	</script> {% endcomment %}
+</form>
+{% else %}
+	<br>
+	<br>
+	<div class="container-fluid  mt-100">
+		<div class="row">
+		
+		   <div class="col-md-12">
+		   
+				   <div class="card">
+			   <div class="card-header">
+			   <h5>Cart</h5>
+			   </div>
+			   <div class="card-body cart">
+					   <div class="col-sm-12 empty-cart-cls text-center">
+						   <img src="/static/images/slideshow/d438a32e-765a-4d8b-b4a6-520b560971e8.webp" width="130" height="130" class="img-fluid mb-4 mr-3">
+						   <h3><strong>Your Cart is Empty</strong></h3>
+						   <h4>Add something to make me happy :)</h4>
+						   <a href="/products/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+						   <a href="/track/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Track Order</a>
+					   </div>
+			   </div>
+	   </div>
+		   </div>
+		
+		</div>
+	   
+	   </div>
+	{% endif %}
+{% endblock %}
+
+
+	{% comment %} <!-- page -->
+	<div class="services-breadcrumb">
+		<div class="agile_inner_breadcrumb">
+			<div class="container">
+				<ul class="w3_short">
+					<li>
+						<a href="index.html">Home</a>
+						<i>|</i>
+					</li>
+					<li>Checkout</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //page -->
+	<!-- checkout page -->
+	<div class="privacy">
+		<div class="container">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l">Checkout
+				<span class="heading-style">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</h3>
+			<!-- //tittle heading -->
+			<div class="checkout-right">
+				<h4>Your shopping cart contains:
+					<span>3 Products</span>
+				</h4>
+				<div class="table-responsive">
+					<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>Product</th>
+								
+								<th>Product Name</th>
+
+								<th>Price</th>
+								<th>Remove</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for i in cart_list %}
+
+							<tr class="rem1">
+								<td class="invert-image">
+									<a href="single2.html">
+										<img src="{{i.product.pic.url}}" alt=" " class="img-responsive">
+									</a>
+								</td>
+								
+								<td class="invert">{{i.product.product_name}}</td>
+								<td class="invert">${{i.product.price}}</td>
+								<td class="invert">
+									 <a href="{% url 'delete_cart_row' i.id %}">
+										<button>
+										Delete
+									</button>
+									</a>
+									
+								</td>
+							</tr>
+							
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="checkout-left">
+				<div class="address_form_agile">
+					<h4>Total Amount To Pay:</h4> 
+					<h4>${{rupee_total_price}}</h4>
+					
+					<div class="checkout-right-basket">
+						<a href="payment.html">
+							<button id="pay-btn" >Make a Payment</button>
+							<span class="fa fa-hand-o-right" aria-hidden="true"></span>
+						</a>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //checkout page -->
+	<!-- newsletter -->
+	<div class="footer-top">
+		<div class="container-fluid">
+			<div class="col-xs-8 agile-leftmk">
+				<h2>Get your Groceries delivered from local stores</h2>
+				<p>Free Delivery on your first order!</p>
+				<form action="#" method="post">
+					<input type="email" placeholder="E-mail" name="email" required="">
+					<input type="submit" value="Subscribe">
+				</form>
+				<div class="newsform-w3l">
+					<span class="fa fa-envelope-o" aria-hidden="true"></span>
+				</div>
+			</div>
+			<div class="col-xs-4 w3l-rightmk">
+				<img src="images/tab3.png" alt=" ">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script>
+	  var options = {
+		 
+		// Enter the Key ID generated from the Dashboard
+		key: "{{ razorpay_merchant_key }}",
+		 
+		// Amount is in currency subunits.
+		// Default currency is INR. Hence,
+		// 50000 refers to 50000 paise
+		amount: "{{ razorpay_amount }}",
+		currency: "{{ currency }}",
+		 
+		// Your/store name.
+		name: "Dj Razorpay",
+		 
+		// Pass the `id` obtained in the response of Step 1
+		order_id: "{{ razorpay_order_id }}",
+		callback_url: "{{ callback_url }}",
+	  };
+	   
+	  // initialise razorpay with the options.
+	  var rzp1 = new Razorpay(options);
+	   
+	  // add event listener to the payment button.
+	  document.getElementById("pay-btn").onclick = function (e) {
+		rzp1.open();
+		e.preventDefault();
+	  };
+	</script> {% endcomment %}

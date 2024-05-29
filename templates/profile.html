@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="contact section-padding">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-6 col-12">
+                <h2 class="mb-4">Edit <span>Profile</span></h2>
+
+                {{msg}}
+
+                <form class="contact-form me-lg-5 pe-lg-3" role="form" action = '/profile/' method='post' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-floating">
+                        <input type="text" name="name" id="name" value = {{user_data.name}} class="form-control" placeholder="Full name" required>
+
+                        <label for="name"></label>
+                    </div>
+
+                    <div class="form-floating my-4">
+                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required disabled>
+
+                        <label for="email"><b>{{user_data.email}}</b></label>
+                    </div>
+                    
+                    <div class="form-floating my-4">
+                        <input type="subject" name="phone" id="subject"class="form-control" value = {{user_data.phone}} placeholder="Subject" required>
+
+                        <label for="subject"></label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea id="message" name="message" class="form-control" placeholder="Leave a comment here" required style="height: 160px"></textarea>
+                        <label for="message">About me</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <div class="file-input-container">
+                            <label for="file-input" class="file-input-label"><b>Choose a file</b></label>
+                            <input type="file" id="file-input" name="pic" class="file-input" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-6">
+                        <button type="submit" class="form-control">Submit</button>
+                    </div>
+                    <br>
+                </form>
+            </div>
+
+<style>
+    /* Style for the file input container */
+    .file-input-container {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        border: 2px solid #000;
+        border-radius: 5px;
+        padding: 8px 12px;
+        background-color: #000;
+        cursor: pointer;
+        color: #fff;
+        text-align: left;
+        margin-bottom: 10px; /* Adjust as needed */
+
+    }
+    
+    /* Style for the file input label */
+    .file-input-label {
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 5px; /* Add some space between label and input */
+    
+    }
+    
+    /* Style for the file input */
+    .file-input {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+    }
+    
+
+</style>
+
+
+{% endblock %}

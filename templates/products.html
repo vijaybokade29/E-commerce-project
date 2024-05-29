@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<header class="site-header section-padding d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-12">
+                            <h1>
+                                <span class="d-block text-primary">Choose your</span>
+                                <span class="d-block text-dark">favorite stuffs</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <br>
+            
+            <center><div>
+                <form method = 'post'>
+                {% csrf_token %}
+                <input type="text" name="product_name" value = '' placeholder='Search...'>
+                <input type="submit" value = 'Search'>
+                </form>
+            </div>
+            
+            </center>
+            <section class="products section-padding">
+                <div class="container">
+                    <div class="row">
+                        
+                        
+                        <div class="col-12">
+                            <h2 class="mb-5">New Arrivals</h2>
+                        </div>
+                        
+                        {% for i in pro_list %}
+                        
+                        
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/product_detail/{{i.id}}">
+                                    <img src="{{i.pic.url}}" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert me-auto">New Arrival</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/product_detail/{{i.id}}" class="product-title-link">{{i.product_name}}</a>
+                                        </h5>
+
+                                        <p class="product-p">{{i.des}}</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">{{i.price}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% empty %}
+                        {% if user_data %}
+                        <center><h3>Not found!</h3></center>
+                        {% endif %}
+                        {% endfor %}
+                        {% if user_data and pro_list %}
+                        <div class="pagination-container">
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination">
+                                {% if pro_list.has_previous %}
+                                <li class="page-item">
+                                  <a class="page-link" href="/products/?page={{pro_list.previous_page_number}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                  </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="/products/?page=1">1</a></li>
+                                {% endif %}
+
+                                <li class="page-item"><a class="page-link" href="/products/?page=2">2</a></li>
+                                <li class="page-item"><a class="page-link" href="/products/?page=3">3</a></li>
+                                <li class="page-item"><a class="page-link" href="/products/?page=4">4</a></li>
+                                {% if pro_list.has_next %}
+
+                                <li class="page-item">
+                                  <a class="page-link" href="/products/?page={{pro_list.next_page_number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                  </a>
+                                </li>
+                                {% endif %}
+                              </ul>
+                            </nav>
+                          </div>
+                          {% endif %}
+                          {% comment %} {% if not user_data %}
+                          <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert me-auto">New Arrival</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Tree pot</a>
+                                        </h5>
+
+                                        <p class="product-p">Original package design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$25</small>
+                                </div>
+                            </div>
+                        </div>
+                          
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/jordan-nix-CkCUvwMXAac-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert">Discounted Price</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/signin/" class="product-title-link">Fashion set</a>
+                                        </h5>
+
+                                        <p class="product-p">Costume package</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$35</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/nature-zen-3Dn1BZZv3m8-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/signin/" class="product-title-link">Juice Drinks</a>
+                                        </h5>
+
+                                        <p class="product-p">Nature made another world</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$45</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %} {% endcomment %}
+
+                        {% if user_data %}
+                        {% for i in pro_list %}
+                        <div class="col-12">
+                            <h2 class="mb-5">Popular</h2>
+                        </div>
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/product_detail/">
+                                    <img src="/static/images/product/team-fredi-8HRKoay8VJE-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert">Trending</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/product_detail/" class="product-title-link">Package</a>
+                                        </h5>
+
+                                        <p class="product-p">Original package design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$50</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/product_detail/">
+                                    <img src="/static/images/product/quokkabottles-kFc1_G1GvKA-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/product_detail/" class="product-title-link">Bottle</a>
+                                        </h5>
+
+                                        <p class="product-p">Package design</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$100</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/product_detail/">
+                                    <img src="/static/images/product/anis-m-WnVrO-DvxcE-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/product_detail/" class="product-title-link">Medicine</a>
+                                        </h5>
+
+                                        <p class="product-p">Original design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$200</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% elif not user_data %}
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/team-fredi-8HRKoay8VJE-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert">Trending</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/signin/" class="product-title-link">Package</a>
+                                        </h5>
+
+                                        <p class="product-p">Original package design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$50</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/quokkabottles-kFc1_G1GvKA-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/signin/" class="product-title-link">Bottle</a>
+                                        </h5>
+
+                                        <p class="product-p">Package design</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$100</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="/signin/">
+                                    <img src="/static/images/product/anis-m-WnVrO-DvxcE-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="/product_detail/" class="product-title-link">Medicine</a>
+                                        </h5>
+
+                                        <p class="product-p">Original design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto">$200</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+
+        <style>
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+          }
+          
+</style>
+{% endblock  %}
