@@ -412,9 +412,8 @@ def paymenthandler(request):
                         quantity = int(i.quantity) ,
                         price = Decimal(i.price),
                     )
-                    for amt in c_objects_list:
-                        print(amt.price)
-                        total_amount += amt.price
+                    print(i.price)
+                    total_amount += i.price
                         
                     i.delete()
                     
